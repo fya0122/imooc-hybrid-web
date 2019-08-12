@@ -1,0 +1,39 @@
+<template>
+  <div class="main">
+    <component :is="currentComponent"></component>
+    <tool-bar @onChangeFragment="onChangeFragment"></tool-bar>
+  </div>
+</template>
+<script>
+import ToolBar from '@c/currency/ToolBar.vue';
+export default {
+  name: 'Main',
+  components: {
+    ToolBar,
+    Home: () => import('@c/Home'),
+    Shopping: () => import('@c/Shopping'),
+    My: () => import('@c/My')
+  },
+  data() {
+    return {
+      currentComponent: 'Home'
+    };
+  },
+  methods: {
+    onChangeFragment(componentName) {
+      if (this.currentComponent === componentName) {
+        return false;
+      }
+      this.currentComponent = componentName;
+    }
+  }
+};
+</script>
+<style scoped lang="scss">
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+</style>
