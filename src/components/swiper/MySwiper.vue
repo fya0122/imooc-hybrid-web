@@ -20,18 +20,25 @@ export default {
     swiperImgs: {
       type: Array,
       required: true,
-      default(){
-        return []
+      default: function() {
+        return [];
       }
     }
   },
-  data(){
+  data() {
     return {
       swiperOptions: {
-        autoplay: 3500,
-        autoHeight: true
+        autoplay: true,
+        autoHeight: true,
+        pagination: {
+          // 分页器的对应的html
+          el: '.swiper-pagination',
+          // 样式
+          type: 'bullets',
+          bulletClass: 'custom-bullet-class'
+        }
       }
-    }
+    };
   },
   components: {
     swiper,
@@ -39,3 +46,22 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import '@css/style.scss';
+.swiper-pagination {
+  bottom: px2rem(12);
+  .custom-bullet-class {
+    box-sizing: border-box;
+    border-radius: 100%;
+    height: px2rem(6);
+    width: px2rem(6);
+    border: px2rem(1) solid #fff;
+    margin: 0 px2rem(4);
+    display: inline-block;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+}
+</style>
