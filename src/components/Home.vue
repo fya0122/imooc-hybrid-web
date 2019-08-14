@@ -12,18 +12,26 @@ export default {
   },
   data () {
     return {
-      swiperImgs: [
-        require('@img/swiper-1.jpg'),
-        require('@img/swiper-2.jpg'),
-        require('@img/swiper-3.jpg'),
-        require('@img/swiper-4.jpg'),
-        require('@img/swiper-5.jpg'),
-        require('@img/swiper-6.jpg'),
-        require('@img/swiper-7.jpg'),
-        require('@img/swiper-8.jpg')
-      ],
+      swiperImgs: [],
       swiperHeight: '184px'
     };
+  },
+  created() {
+    this._initSwiperData()
+  },
+  methods: {
+    _initSwiperData() {
+      this.$http.get('/swiper').then((res) => {
+        if (res.data.state === '0' && res.data.data.list.length > 0) {
+          this.swiperImgs = res.data.data.list
+        } else {
+          this.swiperImgs = []
+        }
+      }).catch((err) => {
+        console.log(err)
+        this.swiperImgs = []
+      })
+    }
   }
 };
 </script>
