@@ -1,7 +1,7 @@
 <template>
   <!-- 需要一个swiper的容器 -->
   <swiper :options="swiperOptions">
-    <swiper-slide v-for="(item, index) in swiperImgs" :key="item.id"><img :style="{ height: height }" class="swiper-slide-img" :src="item.icon" alt="" /></swiper-slide>
+    <swiper-slide v-for="item of swiperImgs" :key="item.id"><img :style="{ height: height }" class="swiper-slide-img" :src="item.icon" alt="" /></swiper-slide>
     <template v-slot:pagination>
       <div class="swiper-pagination"></div>
     </template>
