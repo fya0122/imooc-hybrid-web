@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import '@js/htmlFontSize.js'
+import service from '@js/axios.config.js'
+
+Vue.prototype.$http = service
 
 Vue.config.productionTip = false
 
