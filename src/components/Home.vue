@@ -1,34 +1,46 @@
 <template>
   <div class="home">
     <div class="home-content">
+      <!-- 轮播图 -->
       <my-swiper :swiperImgs="swiperImgs" :height="swiperHeight"></my-swiper>
+      <!-- 520活动 -->
       <activity>
         <div class="activity-520">
           <img :key="item.id" v-for="item of activityDatas" :src="item.icon" alt="">
         </div>
       </activity>
+      <!-- 功能模块 -->
+      <mode-options></mode-options>
+      <!-- 秒杀活动模块 -->
+      <seconds :dataSource="secondsDatas"></seconds>
     </div>
   </div>
 </template>
 <script>
   import MySwiper from '@c/swiper/MySwiper.vue'
   import Activity from '@c/currency/Activity.vue'
+  import ModeOptions from '@c/currency/ModeOptions.vue'
+  import Seconds from '@c/seconds/Seconds.vue'
   export default {
     name: 'Home',
     components: {
       MySwiper,
-      Activity
+      Activity,
+      ModeOptions,
+      Seconds
     },
     data() {
       return {
         swiperImgs: [],
         swiperHeight: '184px',
-        activityDatas: []
+        activityDatas: [],
+        secondsDatas: []
       };
     },
     created() {
       this._initSwiperData()
       this._initActivityDatas()
+      this._initSecondsDatas()
     },
     methods: {
       _initSwiperData() {
@@ -47,13 +59,25 @@
         this.$http.get('/activitys').then((res) => {
           if (res.data.state === '0' && res.data.data.list.length > 0) {
             this.activityDatas = res.data.data.list
-            console.log(this.activityDatas)
           } else {
             this.activityDatas = []
           }
         }).catch((err) => {
           console.log(err)
           this.activityDatas = []
+        })
+      },
+      _initSecondsDatas() {
+        this.$http.get('/seconds').then((res) => {
+          if (res.data.state === '0' && res.data.data.list.length > 0) {
+            this.secondsDatas = res.data.data.list
+            console.log(this.secondsDatas)
+          } else {
+            this.secondsDatas = []
+          }
+        }).catch((err) => {
+          console.log(err)
+          this.secondsDatas = []
         })
       }
     }
