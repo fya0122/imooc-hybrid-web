@@ -14,7 +14,7 @@
  * 3、按钮的icon，分为了默认和select选中的
  * */
 export default {
-  data() {
+  data () {
     return {
       toolBarData: [
         { nIcon: require('@img/home-n.svg'), hIcon: require('@img/home-h.svg'), name: '首页', componentName: 'Home' },
@@ -22,15 +22,15 @@ export default {
         { nIcon: require('@img/my-n.svg'), hIcon: require('@img/my-h.svg'), name: '我的', componentName: 'My' }
       ],
       selectItemIndex: 0
-    };
+    }
   },
   methods: {
-    onChangeFragment(item, index) {
-      this.selectItemIndex = index;
-      this.$emit('onChangeFragment', item.componentName);
+    onChangeFragment (item, index) {
+      this.selectItemIndex = index
+      this.$emit('onChangeFragment', item.componentName)
     }
   }
-};
+}
 </script>
 <style scoped lang="scss">
 @import '@css/style.scss';

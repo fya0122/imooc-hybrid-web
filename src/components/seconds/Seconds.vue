@@ -3,30 +3,34 @@
     <div class="seconds-wrap">
       <p class="seconds-wrap-title">京东秒杀</p>
       <!-- 倒计时模块组件 -->
-
+      <count-down :endHours="10"></count-down>
     </div>
     <div class="seconds-content">
       <div class="seconds-content-item" :key="item.id" v-for="item of dataSource">
         <img class="seconds-content-item-icon" :src="item.icon" alt="">
-        <p class="seconds-content-item-price">￥{{ item.price }}</p>
+        <p class="seconds-content-item-price">￥{{ item.price | priceValue }}</p>
         <p class="seconds-content-item-old-price">￥{{ item.oldPrice }}</p>
       </div>
     </div>
   </div>
 </template>
 <script>
-  export default {
-    name: 'Seconds',
-    props: {
-      dataSource: {
-        type: Array,
-        required: true,
-        default () {
-          return []
-        }
+import CountDown from '@c/seconds/CountDown.vue'
+export default {
+  name: 'Seconds',
+  components: {
+    CountDown
+  },
+  props: {
+    dataSource: {
+      type: Array,
+      required: true,
+      default () {
+        return []
       }
     }
   }
+}
 </script>
 <style lang="scss" scoped>
   @import '@css/style.scss';
@@ -51,18 +55,22 @@
       display: flex;
       overflow: hidden;
       overflow-x: scroll;
+
       &-item {
         padding: 0 px2rem(12);
         text-align: center;
+
         &-icon {
           width: px2rem(66);
           height: px2rem(66);
         }
+
         &-price {
           color: $mainColor;
           font-size: $titleSize;
           margin-top: px2rem(4);
         }
+
         &-old-price {
           color: $hintColor;
           font-size: $infoSize;

@@ -4,7 +4,7 @@
 <script>
 export default {
   name: 'Shopping'
-};
+}
 </script>
 <style scoped lang="scss">
 .shopping {

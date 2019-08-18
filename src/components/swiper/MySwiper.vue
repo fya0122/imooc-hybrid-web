@@ -8,8 +8,8 @@
   </swiper>
 </template>
 <script>
-import 'swiper/dist/css/swiper.css';
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   name: 'MySwiper',
   props: {
@@ -20,12 +20,12 @@ export default {
     swiperImgs: {
       type: Array,
       required: true,
-      default: function() {
-        return [];
+      default: function () {
+        return []
       }
     }
   },
-  data() {
+  data () {
     return {
       swiperOptions: {
         autoplay: true,
@@ -38,13 +38,13 @@ export default {
           bulletClass: 'custom-bullet-class'
         }
       }
-    };
+    }
   },
   components: {
     swiper,
     swiperSlide
   }
-};
+}
 </script>
 <style lang="scss">
 @import '@css/style.scss';

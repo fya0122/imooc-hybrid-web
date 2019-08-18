@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import '@js/filters.js'
 import '@js/htmlFontSize.js'
 import service from '@js/axios.config.js'
 

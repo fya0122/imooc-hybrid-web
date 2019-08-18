@@ -4,9 +4,9 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'Activity'
-  };
+export default {
+  name: 'Activity'
+}
 </script>
 <style scoped lang="scss">
   @import '@css/style.scss';

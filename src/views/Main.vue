@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import ToolBar from '@c/currency/ToolBar.vue';
+import ToolBar from '@c/currency/ToolBar.vue'
 export default {
   name: 'Main',
   components: {
@@ -14,20 +14,20 @@ export default {
     Shopping: () => import('@c/Shopping'),
     My: () => import('@c/My')
   },
-  data() {
+  data () {
     return {
       currentComponent: 'Home'
-    };
+    }
   },
   methods: {
-    onChangeFragment(componentName) {
+    onChangeFragment (componentName) {
       if (this.currentComponent === componentName) {
-        return false;
+        return false
       }
-      this.currentComponent = componentName;
+      this.currentComponent = componentName
     }
   }
-};
+}
 </script>
 <style scoped lang="scss">
 .main {

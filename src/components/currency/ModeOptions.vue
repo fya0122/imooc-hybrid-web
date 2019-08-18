@@ -7,55 +7,55 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'ModeOptions',
-    data() {
-      return {
-        // 数据源
-        dataSource: [{
-          id: 1,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 2,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 3,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 4,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 5,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 6,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 7,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 8,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 9,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }, {
-          id: 10,
-          icon: require('@img/jingDongChaoShi.png'),
-          title: '京东超市'
-        }]
-      }
+export default {
+  name: 'ModeOptions',
+  data () {
+    return {
+      // 数据源
+      dataSource: [{
+        id: 1,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 2,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 3,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 4,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 5,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 6,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 7,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 8,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 9,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }, {
+        id: 10,
+        icon: require('@img/jingDongChaoShi.png'),
+        title: '京东超市'
+      }]
     }
   }
+}
 </script>
 <style lang="scss" scoped>
   @import '@css/style.scss';
