@@ -3,8 +3,10 @@
     <div :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of dataSource" ref="goodsItem" class="goods-item goods-waterfall-item">
       <img class="goods-item-img" :src="item.img" :style="imgStyles[index]" alt="">
       <div class="goods-item-desc">
-        <p class="goods-item-desc-name">
-          <span class="text-line-2">{{ item.name }}</span>
+        <p class="goods-item-desc-name text-line-2" :class="{'goods-item-desc-name-light': !item.isHave}">
+          <direct v-if="item.isDirect"></direct>
+          <noHave v-if="!item.isHave"></noHave>
+          {{ item.name }}
         </p>
         <div class="goods-item-desc-data">
           <p class="goods-item-desc-data-price">￥{{ item.price | priceValue }}</p>
@@ -15,8 +17,14 @@
   </div>
 </template>
 <script>
+import Direct from '@c/goods/Direct.vue'
+import NoHave from '@c/goods/NoHave.vue'
 export default {
   name: 'Goods',
+  components: {
+    Direct,
+    NoHave
+  },
   data () {
     return {
       dataSource: [],
@@ -95,7 +103,8 @@ export default {
         }
         this.goodsItemStyles.push(goodsItemStyle)
       })
-      this.goodsViewHeight = leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal + 'px'
+      let goodsViewHeight = leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal
+      this.goodsViewHeight = goodsViewHeight + 'px'
     }
   }
 }
@@ -117,6 +126,10 @@ export default {
         &-name {
           font-size: $infoSize;
           line-height: px2rem(18);
+
+          &-light {
+            color: $hintColor;
+          }
         }
 
         &-data {

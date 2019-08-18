@@ -1,5 +1,16 @@
 <template>
   <div class="home">
+    <navigation-bar :isShowBack="false">
+      <template v-slot:nav-left>
+        <img src="@img/more-white.svg" alt="">
+      </template>
+      <template v-slot:nav-center>
+        <p style="font-size: 32px;display: flex;">中间插槽</p>
+      </template>
+      <template v-slot:nav-right>
+        <img src="@img/message-white.svg" alt="">
+      </template>
+    </navigation-bar>
     <div class="home-content">
       <!-- 轮播图 -->
       <my-swiper :swiperImgs="swiperImgs" :height="swiperHeight"></my-swiper>
@@ -29,6 +40,7 @@ import Activity from '@c/currency/Activity.vue'
 import ModeOptions from '@c/currency/ModeOptions.vue'
 import Seconds from '@c/seconds/Seconds.vue'
 import Goods from '@c/goods/Goods.vue'
+import NavigationBar from '@c/currency/NavigationBar.vue'
 export default {
   name: 'Home',
   components: {
@@ -36,7 +48,8 @@ export default {
     Activity,
     ModeOptions,
     Seconds,
-    Goods
+    Goods,
+    NavigationBar
   },
   data () {
     return {
@@ -101,20 +114,25 @@ export default {
     overflow: hidden;
     overflow-y: auto;
     background-color: $bgColor;
+
     &-content {
       height: 100%;
+
       .activity-520 {
         margin-top: px2rem(-8);
         border-top-left-radius: px2rem(8);
         border-top-right-radius: px2rem(8);
+
         img {
           display: inline-block;
           width: 33.33%;
         }
       }
+
       .activity-pin-gou-jie {
         background: white;
         margin-top: $marginSize;
+
         img {
           width: 100%;
         }
