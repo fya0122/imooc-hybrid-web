@@ -1,6 +1,6 @@
 <template>
   <div class="mode-options">
-    <div class="mode-options-item" :key="item.id" v-for="item of dataSource">
+    <div @click="onItemClick(item)" class="mode-options-item" :key="item.id" v-for="item of dataSource">
       <img :src="item.icon" alt="" class="mode-options-item-icon">
       <p class="mode-options-item-title">{{ item.title }}</p>
     </div>
@@ -53,6 +53,14 @@ export default {
         icon: require('@img/jingDongChaoShi.png'),
         title: '京东超市'
       }]
+    }
+  },
+  methods: {
+    onItemClick (item) {
+      window.console.log(item)
+      this.$router.push({
+        name: 'GoodsList'
+      })
     }
   }
 }

@@ -10,6 +10,10 @@ const router = new Router({
     path: '/',
     name: 'Main',
     component: () => import('./views/Main.vue')
+  }, {
+    path: '/goodsList',
+    name: 'GoodsList',
+    component: () => import('./views/GoodsList.vue')
   }]
 })
 

@@ -1,6 +1,6 @@
 <template>
   <div class="home" @scroll="onScrollChange">
-    <navigation-bar :navBarStyle="navBarStyle" :isShowBack="false">
+    <navigation-bar @onLeftClick="onLeftClick" :navBarStyle="navBarStyle" :isShowBack="false">
       <template v-slot:nav-left>
         <img :src="navBarCurrentSlotStyle.leftIcon" alt="">
       </template>
@@ -103,6 +103,9 @@ export default {
     this._initSecondsDatas()
   },
   methods: {
+    onLeftClick () {
+      alert('yes')
+    },
     _initSwiperData () {
       this.$http.get('/swiper').then(res => {
         if (res.data.state === '0' && res.data.data.list.length > 0) {
