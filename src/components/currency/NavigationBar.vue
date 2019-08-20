@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bar z-index-max" :class="{'bottom-line': pageName}">
+  <div :style="navBarStyle" class="nav-bar z-index-max" :class="{'bottom-line': pageName}">
     <div class="left">
       <img v-if="isShowBack" src="@img/back.svg" alt="">
       <slot name="nav-left"></slot>
@@ -24,6 +24,14 @@ export default {
     isShowBack: {
       type: Boolean,
       default: true
+    },
+    navBarStyle: {
+      type: Object,
+      default () {
+        return {
+          backgroundColor: 'white'
+        }
+      }
     }
   }
 }
@@ -55,6 +63,7 @@ export default {
     .center {
       height: 100%;
       display: flex;
+      flex-grow: 1;
 
       .page-title {
         font-size: $titleSize;

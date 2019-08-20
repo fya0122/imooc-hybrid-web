@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
-    <navigation-bar :isShowBack="false">
+  <div class="home" @scroll="onScrollChange">
+    <navigation-bar :navBarStyle="navBarStyle" :isShowBack="false">
       <template v-slot:nav-left>
-        <img src="@img/more-white.svg" alt="">
+        <img :src="navBarCurrentSlotStyle.leftIcon" alt="">
       </template>
       <template v-slot:nav-center>
-        <p style="font-size: 32px;display: flex;">中间插槽</p>
+        <search :icon="navBarCurrentSlotStyle.search.icon" :bgColor="navBarCurrentSlotStyle.search.bgColor" :hintColor="navBarCurrentSlotStyle.search.hintColor"></search>
       </template>
       <template v-slot:nav-right>
-        <img src="@img/message-white.svg" alt="">
+        <img :src="navBarCurrentSlotStyle.rightIcon" alt="">
       </template>
     </navigation-bar>
     <div class="home-content">
@@ -41,6 +41,8 @@ import ModeOptions from '@c/currency/ModeOptions.vue'
 import Seconds from '@c/seconds/Seconds.vue'
 import Goods from '@c/goods/Goods.vue'
 import NavigationBar from '@c/currency/NavigationBar.vue'
+import Search from '@c/currency/Search'
+
 export default {
   name: 'Home',
   components: {
@@ -49,17 +51,53 @@ export default {
     ModeOptions,
     Seconds,
     Goods,
-    NavigationBar
+    NavigationBar,
+    Search
   },
   data () {
     return {
       swiperImgs: [],
       swiperHeight: '184px',
       activityDatas: [],
-      secondsDatas: []
+      secondsDatas: [],
+      // 一定要写上默认的样式和滑动的样式
+      navBarSlotStyle: {
+        // 默认的样式，未开始滑动的时候的样式
+        normal: {
+          leftIcon: require('@img/more-white.svg'),
+          search: {
+            bgColor: '#ffffff',
+            hintColor: '#999999',
+            icon: require('@img/search.svg')
+          },
+          rightIcon: require('@img/message-white.svg')
+        },
+        // 高亮的样式，滑动到一定的程序的样式
+        highlight: {
+          leftIcon: require('@img/more.svg'),
+          search: {
+            bgColor: '#d7d7d7',
+            hintColor: '#ffffff',
+            icon: require('@img/search-white.svg')
+          },
+          rightIcon: require('@img/message.svg')
+        }
+      },
+      // 当前使用的插槽样式
+      navBarCurrentSlotStyle: {},
+      navBarStyle: {
+        position: 'fixed',
+        backgroundColor: ''
+      },
+      // 记录页面的滚动值，既然滚动起来了，肯定是要大于-1的
+      scrollToValue: -1,
+      // 锚点值
+      ANCHOR_SCROLL_TOP: 160
     }
   },
   created () {
+    // 1、一开始让它是默认的
+    this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal
     this._initSwiperData()
     this._initActivityDatas()
     this._initSecondsDatas()
@@ -100,6 +138,17 @@ export default {
         console.log(err)
         this.secondsDatas = []
       })
+    },
+    onScrollChange ($event) {
+      this.scrollToValue = $event.target.scrollTop
+      // 计算navBar的背景颜色呢
+      let opacity = this.scrollToValue / this.ANCHOR_SCROLL_TOP
+      if (opacity >= 1) {
+        this.navBarCurrentSlotStyle = this.navBarSlotStyle.highlight
+      } else {
+        this.navBarCurrentSlotStyle = this.navBarSlotStyle.normal
+      }
+      this.navBarStyle.backgroundColor = `rgba(255, 255, 255, ${opacity})`
     }
   }
 }

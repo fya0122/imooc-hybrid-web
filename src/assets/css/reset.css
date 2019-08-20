@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -84,12 +84,12 @@ time,
 mark,
 audio,
 video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -104,49 +104,49 @@ hgroup,
 menu,
 nav,
 section {
-	display: block;
+    display: block;
 }
 
 body {
-	line-height: 1;
+    line-height: 1;
 }
 
 ol,
 ul {
-	list-style: none;
+    list-style: none;
 }
 
 blockquote,
 q {
-	quotes: none;
+    quotes: none;
 }
 
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-	content: '';
-	content: none;
+    content: '';
+    content: none;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* 以上代码是reset.css自带的 */
 /* 以下代码是全部初始化的，为了项目的方便 */
 html,
 body {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	/* 不指定为0，那么图片之间默认会有一个间距 */
-	font-size: 0;
-	/* 不允许去选中文本 */
-	user-select: none;
-	/* IOS 下的滑动卡顿问题 */
-	-webkit-overflow-scrolling: touch;
-	/* IOS 下点击取消默认高亮效果 */
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* 不指定为0，那么图片之间默认会有一个间距 */
+    font-size: 0;
+    /* 不允许去选中文本 */
+    user-select: none;
+    /* IOS 下的滑动卡顿问题 */
+    -webkit-overflow-scrolling: touch;
+    /* IOS 下点击取消默认高亮效果 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
