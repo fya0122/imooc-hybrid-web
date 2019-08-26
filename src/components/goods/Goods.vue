@@ -54,8 +54,8 @@ export default {
       // 默认下的类名
       // 1、垂直列表的展示形式goods-list和goods-list-item
       // 2、网格布局的展示形式，goods-grid和goods-grid-item
-      layoutClass: 'goods-grid',
-      layoutItemClass: 'goods-grid-item'
+      layoutClass: 'goods-list',
+      layoutItemClass: 'goods-list-item'
     }
   },
   mounted () {
@@ -66,7 +66,7 @@ export default {
       this.$http.get('/goods').then((res) => {
         if (res.data.state === '0' && res.data.data.list.length > 0) {
           this.dataSource = res.data.data.list
-          // this.initImgStyles()
+          this.initLayout()
         } else {
           this.dataSource = []
         }
@@ -121,6 +121,38 @@ export default {
       })
       let goodsViewHeight = leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal
       this.goodsViewHeight = goodsViewHeight + 'px'
+    },
+    // 类似于初始化一样
+    initLayout () {
+      this.goodsViewHeight = '100%'
+      this.goodsItemStyles = []
+      this.imgStyles = []
+      if (this.layoutType === '1') {
+        // 垂直列表
+        this.layoutClass = 'goods-list'
+        this.layoutItemClass = 'goods-list-item'
+      }
+      if (this.layoutType === '2') {
+        // 网格布局
+        this.layoutClass = 'goods-grid'
+        this.layoutItemClass = 'goods-grid-item'
+      }
+      if (this.layoutType === '3') {
+        // 瀑布流
+        this.layoutClass = 'goods-waterfall'
+        this.layoutItemClass = 'goods-waterfall-item'
+        this.$nextTick(() => {
+          this.initImgStyles()
+        })
+      }
+    }
+  },
+  watch: {
+    /*
+    * 当它发生变化的时候，调用一个方法，重新展示
+    * */
+    layoutType (newVal, oldVal) {
+      this.initLayout()
     }
   }
 }
@@ -170,7 +202,6 @@ export default {
       }
     }
   }
-
   // 垂直列表
   .goods-list {
     &-item {
@@ -188,7 +219,6 @@ export default {
       }
     }
   }
-
   // 网格布局
   .goods-grid {
     padding: $marginSize;

@@ -1,9 +1,13 @@
 <template>
   <div class="goods-list-page">
-    <navigation-bar :pageName="'商品列表'" @onLeftClick="onLeftClick"></navigation-bar>
+    <navigation-bar :pageName="'商品列表'" @onLeftClick="onLeftClick">
+      <template v-slot:nav-right>
+        <img :src="layoutType.icon" @click="onChangeLayoutTypeClick()">
+      </template>
+    </navigation-bar>
     <div class="goods-list-page-content">
       <goods-options></goods-options>
-      <goods></goods>
+      <goods :layoutType="layoutType.type"></goods>
     </div>
   </div>
 </template>
@@ -13,14 +17,45 @@ import GoodsOptions from '@c/goods/GoodsOptions.vue'
 import Goods from '@c/goods/Goods.vue'
 export default {
   name: 'GoodsList',
+  data () {
+    return {
+      layoutTypeDatas: [
+        {
+          type: '1',
+          icon: require('@img/list-type.svg')
+        },
+        {
+          type: '2',
+          icon: require('@img/grid-type.svg')
+        },
+        {
+          type: '3',
+          icon: require('@img/waterfall-type.svg')
+        }
+      ],
+      layoutType: {}
+    }
+  },
   components: {
     NavigationBar,
     GoodsOptions,
     Goods
   },
+  created () {
+    this.layoutType = this.layoutTypeDatas[0]
+  },
   methods: {
     onLeftClick () {
       this.$router.go(-1)
+    },
+    onChangeLayoutTypeClick () {
+      if (this.layoutType.type === '1') {
+        this.layoutType = this.layoutTypeDatas[1]
+      } else if (this.layoutType.type === '2') {
+        this.layoutType = this.layoutTypeDatas[2]
+      } else if (this.layoutType.type === '3') {
+        this.layoutType = this.layoutTypeDatas[0]
+      }
     }
   }
 }
