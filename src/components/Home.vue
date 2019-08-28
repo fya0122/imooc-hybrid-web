@@ -13,7 +13,7 @@
     </navigation-bar>
     <div class="home-content">
       <!-- 轮播图 -->
-      <my-swiper :swiperImgs="swiperImgs" :height="swiperHeight"></my-swiper>
+      <my-swiper :swiperImgs="swiperImgs.map(item => item.icon)" :height="swiperHeight"></my-swiper>
       <!-- 520活动 -->
       <activity>
         <div class="activity-520">

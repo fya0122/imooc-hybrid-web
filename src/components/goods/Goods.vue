@@ -85,7 +85,10 @@ export default {
         return false
       }
       this.$router.push({
-        name: 'GoodsDetail'
+        name: 'GoodsDetail',
+        params: {
+          goods: item
+        }
       })
     },
     // 商品排序
