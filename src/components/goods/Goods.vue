@@ -1,6 +1,6 @@
 <template>
   <div class="goods" :class="[layoutClass, {'goods-scroll': isScroll}]" :style="{'height': goodsViewHeight}">
-    <div :class="layoutItemClass" :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of sortGoodsData" ref="goodsItem" class="goods-item">
+    <div @click="onItemClick(item)" :class="layoutItemClass" :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of sortGoodsData" ref="goodsItem" class="goods-item">
       <img class="goods-item-img" :src="item.img" :style="imgStyles[index]" alt="">
       <div class="goods-item-desc">
         <p class="goods-item-desc-name text-line-2" :class="{'goods-item-desc-name-light': !item.isHave}">
@@ -79,6 +79,15 @@ export default {
     this.initData()
   },
   methods: {
+    onItemClick (item) {
+      if (!item.isHave) {
+        alert('该商品无库存')
+        return false
+      }
+      this.$router.push({
+        name: 'GoodsDetail'
+      })
+    },
     // 商品排序
     setSortGoodsData () {
       if (this.sort === '1-1') {
