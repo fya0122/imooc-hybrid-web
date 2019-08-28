@@ -69,7 +69,11 @@ export default {
   },
   created () {
     this.selectedOption = this.optionsDatas[0]
-    console.log(this.selectedOption)
+  },
+  watch: {
+    selectedOption (newVal, oldVal) {
+      this.$emit('optionsChange', newVal.id)
+    }
   },
   methods: {
     // 展开父组件

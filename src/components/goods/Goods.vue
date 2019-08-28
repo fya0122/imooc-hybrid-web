@@ -1,6 +1,6 @@
 <template>
-  <div class="goods" :class="layoutClass" :style="{'height': goodsViewHeight}">
-    <div :class="layoutItemClass" :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of dataSource" ref="goodsItem" class="goods-item">
+  <div class="goods" :class="[layoutClass, {'goods-scroll': isScroll}]" :style="{'height': goodsViewHeight}">
+    <div :class="layoutItemClass" :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of sortGoodsData" ref="goodsItem" class="goods-item">
       <img class="goods-item-img" :src="item.img" :style="imgStyles[index]" alt="">
       <div class="goods-item-desc">
         <p class="goods-item-desc-name text-line-2" :class="{'goods-item-desc-name-light': !item.isHave}">
@@ -30,6 +30,21 @@ export default {
     layoutType: {
       type: String,
       default: '1'
+    },
+    // 是否允许goods单独滑动
+    isScroll: {
+      type: Boolean,
+      default: true
+    },
+    // 定义排序的规则
+    // 1-1默认
+    // 1-2是价格由高到低
+    // 1-3销量由高到底
+    // 2有货优先
+    // 3直营优先
+    sort: {
+      type: String,
+      default: '1-1'
     }
   },
   components: {
@@ -38,6 +53,8 @@ export default {
   },
   data () {
     return {
+      // 排序之后的数据
+      sortGoodsData: [],
       dataSource: [],
       // 最大高度
       MAX_IMG_HEIGHT: 230,
@@ -62,10 +79,45 @@ export default {
     this.initData()
   },
   methods: {
+    // 商品排序
+    setSortGoodsData () {
+      if (this.sort === '1-1') {
+        // 深拷贝，不改变原来的数组
+        this.sortGoodsData = this.dataSource.slice(0)
+      } else if (this.sort === '1-2') { // 价格
+        this.getSortGoodsDataFromKey('price')
+      } else if (this.sort === '1-3') { // 销量
+        this.getSortGoodsDataFromKey('volume')
+      } else if (this.sort === '2') { // 有货
+        this.getSortGoodsDataFromKey('isHave')
+      } else if (this.sort === '3') { // 直营
+        this.getSortGoodsDataFromKey('isDirect')
+      }
+    },
+    getSortGoodsDataFromKey (key) {
+      this.sortGoodsData.sort((goods1, goods2) => {
+        let v1 = goods1[key]
+        let v2 = goods2[key]
+        // 对value对比
+        if (typeof v1 === 'boolean') {
+          if (v1) {
+            return -1
+          }
+          if (v2) {
+            return 1
+          }
+        }
+        if (parseFloat(v1) >= parseFloat(v2)) {
+          return -1
+        }
+        return 1
+      })
+    },
     initData () {
       this.$http.get('/goods').then((res) => {
         if (res.data.state === '0' && res.data.data.list.length > 0) {
           this.dataSource = res.data.data.list
+          this.setSortGoodsData()
           this.initLayout()
         } else {
           this.dataSource = []
@@ -119,8 +171,12 @@ export default {
         }
         this.goodsItemStyles.push(goodsItemStyle)
       })
-      let goodsViewHeight = leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal
-      this.goodsViewHeight = goodsViewHeight + 'px'
+      // 不允许goods单独滑动的时候，才需要计算高度，
+      // 如果允许单独滑动的话，需要
+      if (!this.isScroll) {
+        let goodsViewHeight = leftHeightTotal > rightHeightTotal ? leftHeightTotal : rightHeightTotal
+        this.goodsViewHeight = goodsViewHeight + 'px'
+      }
     },
     // 类似于初始化一样
     initLayout () {
@@ -153,6 +209,9 @@ export default {
     * */
     layoutType (newVal, oldVal) {
       this.initLayout()
+    },
+    sort (newVal, oldVal) {
+      this.setSortGoodsData()
     }
   }
 }
@@ -162,8 +221,10 @@ export default {
 
   .goods {
     background-color: $bgColor;
-    overflow: hidden;
-    overflow-y: auto;
+    &-scroll {
+      overflow: hidden;
+      overflow-y: auto;
+    }
     &-item {
       background-color: white;
       padding: $marginSize;

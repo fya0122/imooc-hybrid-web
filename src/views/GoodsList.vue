@@ -6,8 +6,8 @@
       </template>
     </navigation-bar>
     <div class="goods-list-page-content">
-      <goods-options></goods-options>
-      <goods :layoutType="layoutType.type"></goods>
+      <goods-options @optionsChange="onGoodsOptionsChange"></goods-options>
+      <goods :sort="sortType" :layoutType="layoutType.type"></goods>
     </div>
   </div>
 </template>
@@ -33,7 +33,8 @@ export default {
           icon: require('@img/waterfall-type.svg')
         }
       ],
-      layoutType: {}
+      layoutType: {},
+      sortType: '1-1'
     }
   },
   components: {
@@ -45,6 +46,9 @@ export default {
     this.layoutType = this.layoutTypeDatas[0]
   },
   methods: {
+    onGoodsOptionsChange (id) {
+      this.sortType = id
+    },
     onLeftClick () {
       this.$router.go(-1)
     },

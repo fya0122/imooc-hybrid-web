@@ -30,7 +30,7 @@
           <img src="@img/pinGouJie.gif" alt="">
         </div>
       </activity>
-      <goods></goods>
+      <goods :layoutType="'3'" :isScroll="false"></goods>
     </div>
   </div>
 </template>
