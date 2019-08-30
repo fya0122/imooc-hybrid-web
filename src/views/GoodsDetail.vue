@@ -3,11 +3,17 @@
     <navigation-bar :isShowBack="false" :navBarStyle="navBarStyle">
       <template v-slot:nav-left>
         <div class="goods-detail-nav-left" @click="onBackClick">
-          <img src="@img/back-2.svg" alt="">
+          <!-- 默认的黑色按钮 -->
+          <img src="@img/back-2.svg" :style="{opacity: leftImgOpacity}">
+          <!-- 完全展示之后的白色后退按钮 -->
+          <img src="@img/back-white.svg" :style="{opacity: navBarSlotOpacity}">
         </div>
       </template>
+      <template v-slot:nav-center>
+        <p class="goods-detail-nav-title" :style="{opacity: navBarSlotOpacity}">商品详情</p>
+      </template>
     </navigation-bar>
-    <div class="goods-detail-content">
+    <div @scroll="onScrollChange" class="goods-detail-content">
       <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs">
       </my-swiper>
       <!-- 内容 -->
@@ -55,11 +61,10 @@ export default {
   name: 'GoodsDetail',
   data () {
     return {
+      /* swiper的高度 */
       SWIPER_IMAGE_HEIGHT: 364,
-      navBarStyle: {
-        backgroundColor: '',
-        position: 'fixed'
-      },
+      /* 锚点值 */
+      ANCHOR_SCROLL_TOP: 310,
       goodsData: {},
       /* 附加服务 */
       attachDatas: [
@@ -69,7 +74,9 @@ export default {
         '211限时达',
         '可自提',
         '不可使用优惠券'
-      ]
+      ],
+      /* 页面滑动值 */
+      scrollValue: 0
     }
   },
   components: {
@@ -84,6 +91,28 @@ export default {
   methods: {
     onBackClick () {
       this.$router.go(-1)
+    },
+    onScrollChange (e) {
+      /* 获取当前页面滑动的值 */
+      this.scrollValue = e.target.scrollTop
+    }
+  },
+  computed: {
+    /* 左侧的透明度，一开始是1，逐渐变成了0 */
+    leftImgOpacity () {
+      return (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP) > 0 ? (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP) : 0
+    },
+    /* navbar的样式 */
+    navBarStyle () {
+      return {
+        backgroundColor: `rgba(216, 30, 6, ${this.navBarSlotOpacity})`,
+        position: 'fixed',
+        top: 0
+      }
+    },
+    /* navbar的插槽位置，它跟左侧的透明度正好是相反的，它一开始就是0，逐渐显示的 */
+    navBarSlotOpacity () {
+      return 1 - this.leftImgOpacity
     }
   }
 }
@@ -100,10 +129,19 @@ export default {
     &-nav-left {
       width: 100%;
       display: flex;
-
+      position: relative;
       img {
         align-self: center;
+        position: absolute;
       }
+    }
+    &-nav-title {
+      width: 100%;
+      height: 100%;
+      font-size: $titleSize;
+      font-weight: bold;
+      text-align: center;
+      color: white;
     }
 
     &-content {
