@@ -8,7 +8,7 @@
       </template>
     </navigation-bar>
     <div class="goods-detail-content">
-      <my-swiper :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
+      <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs"></my-swiper>
     </div>
   </div>
 </template>
