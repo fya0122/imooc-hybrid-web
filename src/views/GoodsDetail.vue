@@ -129,6 +129,7 @@ export default {
   @import "@css/style.scss";
 
   .goods-detail {
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;

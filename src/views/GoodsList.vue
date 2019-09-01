@@ -67,6 +67,7 @@ export default {
 <style scoped lang="scss">
 @import '@css/style.scss';
 .goods-list-page {
+  position: absolute;
   width: 100%;
   height: 100%;
   background-color: $bgColor;

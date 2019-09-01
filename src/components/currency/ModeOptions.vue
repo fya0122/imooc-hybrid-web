@@ -59,7 +59,10 @@ export default {
     onItemClick (item) {
       window.console.log(item)
       this.$router.push({
-        name: 'GoodsList'
+        name: 'GoodsList',
+        params: {
+          routerType: 'push'
+        }
       })
     }
   }

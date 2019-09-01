@@ -31,6 +31,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .main {
+  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
