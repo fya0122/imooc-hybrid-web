@@ -13,37 +13,43 @@
         <p class="goods-detail-nav-title" :style="{opacity: navBarSlotOpacity}">商品详情</p>
       </template>
     </navigation-bar>
-    <div @scroll="onScrollChange" class="goods-detail-content">
-      <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs">
-      </my-swiper>
-      <!-- 内容 -->
-      <div class="goods-detail-content-desc">
-        <div class="goods-detail-content-desc-item">
-          <p class="goods-detail-content-desc-item-price">￥{{ goodsData.price | priceValue }}</p>
-          <p class="goods-detail-content-desc-item-name">
-            <direct v-if="goodsData.isDirect"></direct>
-            {{ goodsData.name }}
-          </p>
-        </div>
-        <div class="goods-detail-content-desc-item">
-          <p class="goods-detail-content-desc-item-select">
-            已选
-            <span class="single-row-text">{{ goodsData.name }}</span>
-          </p>
-          <!-- 附加服务 -->
-          <div class="goods-detail-content-desc-item-support">
-            <ul class="goods-detail-content-desc-item-support-list">
-              <li class="goods-detail-content-desc-item-support-list-item" v-for="item of attachDatas" :key="item">
-                <img src="@img/support.svg" alt="">
-                <span>{{ item }}</span>
-              </li>
-            </ul>
+    <div class="goods-detail-content">
+      <parallax @onScrollChange="onScrollChange">
+        <template v-slot:parallax-slow>
+          <my-swiper :paginationType="'2'" :height="SWIPER_IMAGE_HEIGHT + 'px'" :swiperImgs="goodsData.swiperImgs">
+          </my-swiper>
+        </template>
+        <template>
+          <!-- 内容 -->
+          <div class="goods-detail-content-desc">
+            <div class="goods-detail-content-desc-item">
+              <p class="goods-detail-content-desc-item-price">￥{{ goodsData.price | priceValue }}</p>
+              <p class="goods-detail-content-desc-item-name">
+                <direct v-if="goodsData.isDirect"></direct>
+                {{ goodsData.name }}
+              </p>
+            </div>
+            <div class="goods-detail-content-desc-item">
+              <p class="goods-detail-content-desc-item-select">
+                已选
+                <span class="single-row-text">{{ goodsData.name }}</span>
+              </p>
+              <!-- 附加服务 -->
+              <div class="goods-detail-content-desc-item-support">
+                <ul class="goods-detail-content-desc-item-support-list">
+                  <li class="goods-detail-content-desc-item-support-list-item" v-for="item of attachDatas" :key="item">
+                    <img src="@img/support.svg" alt="">
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="goods-detail-content-desc-detail">
+              <img :key="item" v-for="item of goodsData.detailImgs" :src="item" alt="">
+            </div>
           </div>
-        </div>
-        <div class="goods-detail-content-desc-detail">
-          <img :key="item" v-for="item of goodsData.detailImgs" :src="item" alt="">
-        </div>
-      </div>
+        </template>
+      </parallax>
     </div>
     <!-- 加入购物车、立即购买 -->
     <div class="goods-detail-buy">
@@ -56,7 +62,7 @@
 import NavigationBar from '@c/currency/NavigationBar.vue'
 import MySwiper from '@c/swiper/MySwiper.vue'
 import Direct from '@c/goods/Direct.vue'
-
+import Parallax from '@c/parallax/Parallax.vue'
 export default {
   name: 'GoodsDetail',
   data () {
@@ -82,7 +88,8 @@ export default {
   components: {
     NavigationBar,
     MySwiper,
-    Direct
+    Direct,
+    Parallax
   },
   created () {
     this.goodsData = this.$route.params.goods
@@ -94,13 +101,14 @@ export default {
     },
     onScrollChange (e) {
       /* 获取当前页面滑动的值 */
-      this.scrollValue = e.target.scrollTop
+      this.scrollValue = e
     }
   },
   computed: {
     /* 左侧的透明度，一开始是1，逐渐变成了0 */
     leftImgOpacity () {
-      return (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP) > 0 ? (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP) : 0
+      return (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP) > 0 ? (1 - this.scrollValue / this.ANCHOR_SCROLL_TOP)
+        : 0
     },
     /* navbar的样式 */
     navBarStyle () {
@@ -130,11 +138,13 @@ export default {
       width: 100%;
       display: flex;
       position: relative;
+
       img {
         align-self: center;
         position: absolute;
       }
     }
+
     &-nav-title {
       width: 100%;
       height: 100%;
@@ -145,8 +155,6 @@ export default {
     }
 
     &-content {
-      overflow: hidden;
-      overflow-y: auto;
       height: 100%;
 
       &-desc {
