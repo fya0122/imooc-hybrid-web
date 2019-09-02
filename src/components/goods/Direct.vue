@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'Direct'
 }
 </script>
 <style scoped lang="scss">

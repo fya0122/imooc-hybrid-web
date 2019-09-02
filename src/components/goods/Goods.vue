@@ -20,7 +20,6 @@
 import Direct from '@c/goods/Direct.vue'
 import NoHave from '@c/goods/NoHave.vue'
 export default {
-  name: 'Goods',
   props: {
     // 这个是啥意思呢？给他个默认的，比如默认就是瀑布流的
     // 当我们传入网格的时候，会改变上面的css的类名
@@ -85,7 +84,7 @@ export default {
         return false
       }
       this.$router.push({
-        name: 'GoodsDetail',
+        name: 'goodsDetail',
         params: {
           goods: item,
           routerType: 'push'
@@ -159,7 +158,6 @@ export default {
     // 瀑布流布局
     initWaterfall () {
       let $goodsItem = this.$refs.goodsItem
-      console.log($goodsItem)
       if (!$goodsItem) {
         return
       }

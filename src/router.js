@@ -1,27 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import main from './views/main.vue'
 
 Vue.use(Router)
 
-const router = new Router({
+export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
     path: '/',
-    name: 'Main',
-    component: () => import('./views/Main.vue')
+    name: 'imooc',
+    component: main
   }, {
     path: '/goodsList',
-    name: 'GoodsList',
-    component: () => import('./views/GoodsList.vue')
+    name: 'goodsList',
+    component: () => import('./views/goodsList.vue')
   }, {
     path: '/goodsDetail',
-    name: 'GoodsDetail',
-    component: () => import('./views/GoodsDetail.vue')
+    name: 'goodsDetail',
+    component: () => import('./views/goodsDetail.vue')
   }]
 })
-
-router.beforeEach((to, from, next) => {
-  next()
-})
-export default router

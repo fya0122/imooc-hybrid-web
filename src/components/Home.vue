@@ -44,7 +44,6 @@ import NavigationBar from '@c/currency/NavigationBar.vue'
 import Search from '@c/currency/Search'
 
 export default {
-  name: 'Home',
   components: {
     MySwiper,
     Activity,

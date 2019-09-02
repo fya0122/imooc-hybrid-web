@@ -6,7 +6,6 @@
 </template>
 <script>
 export default {
-  name: 'Search',
   props: {
     icon: {
       default: require('@img/search.svg'),

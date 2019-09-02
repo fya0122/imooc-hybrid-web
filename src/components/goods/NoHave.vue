@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'NoHave'
 }
 </script>
 <style scoped lang="scss">

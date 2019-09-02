@@ -12,11 +12,10 @@
 </template>
 <script>
 export default {
-  name: 'Parallax',
   data () {
     return {
       // 速度差
-      SPEED_DIFF: 0,
+      SPEED_DIFF: 2,
       // 滑动值
       parallaxScroll: 0
     }
@@ -24,11 +23,6 @@ export default {
   methods: {
     onScrollChange ($event) {
       this.parallaxScroll = $event.target.scrollTop
-      if (this.parallaxScroll > 0) {
-        this.SPEED_DIFF = 2
-      } else if (this.parallaxScroll === 0) {
-        this.SPEED_DIFF = 0
-      }
       this.$emit('onScrollChange', this.parallaxScroll)
     }
   },

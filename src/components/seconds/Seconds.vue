@@ -17,7 +17,6 @@
 <script>
 import CountDown from '@c/seconds/CountDown.vue'
 export default {
-  name: 'Seconds',
   components: {
     CountDown
   },

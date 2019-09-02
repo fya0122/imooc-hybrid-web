@@ -1,25 +1,32 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view />
+      <keep-alive :include="virtualTaskStack">
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
-<script>
+<script type='text/javascript'>
 export default {
   data () {
     return {
-      transitionName: 'fold-left'
+      transitionName: 'fold-left',
+      // 虚拟的任务栈
+      virtualTaskStack: ['imooc']
     }
   },
   watch: {
     '$route' (to, form) {
       const routerType = to.params.routerType
       if (routerType === 'push') {
+        this.virtualTaskStack.push(to.name)
         this.transitionName = 'fold-left'
       } else {
+        this.virtualTaskStack.pop()
         this.transitionName = 'fold-right'
       }
+      console.log(this.virtualTaskStack)
     }
   }
 }

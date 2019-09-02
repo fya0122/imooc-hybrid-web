@@ -8,7 +8,6 @@
 </template>
 <script>
 export default {
-  name: 'ModeOptions',
   data () {
     return {
       // 数据源
@@ -57,9 +56,8 @@ export default {
   },
   methods: {
     onItemClick (item) {
-      window.console.log(item)
       this.$router.push({
-        name: 'GoodsList',
+        name: 'goodsList',
         params: {
           routerType: 'push'
         }

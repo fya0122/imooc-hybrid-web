@@ -15,7 +15,6 @@
 </template>
 <script>
 export default {
-  name: 'NavigationBar',
   props: {
     pageName: {
       type: String,

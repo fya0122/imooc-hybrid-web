@@ -6,7 +6,6 @@
 <script>
 import NavigationBar from '@c/currency/NavigationBar.vue'
 export default {
-  name: 'Shopping',
   components: {
     NavigationBar
   }

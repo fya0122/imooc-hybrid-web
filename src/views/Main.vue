@@ -7,7 +7,7 @@
 <script>
 import ToolBar from '@c/currency/ToolBar.vue'
 export default {
-  name: 'Main',
+  name: 'imooc',
   components: {
     ToolBar,
     Home: () => import('@c/Home'),
@@ -30,11 +30,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.main {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
+  .main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 </style>

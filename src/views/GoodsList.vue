@@ -16,7 +16,7 @@ import NavigationBar from '@c/currency/NavigationBar.vue'
 import GoodsOptions from '@c/goods/GoodsOptions.vue'
 import Goods from '@c/goods/Goods.vue'
 export default {
-  name: 'GoodsList',
+  name: 'goodsList',
   data () {
     return {
       layoutTypeDatas: [

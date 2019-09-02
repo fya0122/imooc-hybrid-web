@@ -5,7 +5,6 @@
 </template>
 <script>
 export default {
-  name: 'Activity'
 }
 </script>
 <style scoped lang="scss">

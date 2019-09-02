@@ -64,7 +64,7 @@ import MySwiper from '@c/swiper/MySwiper.vue'
 import Direct from '@c/goods/Direct.vue'
 import Parallax from '@c/parallax/Parallax.vue'
 export default {
-  name: 'GoodsDetail',
+  name: 'goodsDetail',
   data () {
     return {
       /* swiper的高度 */
@@ -93,7 +93,6 @@ export default {
   },
   created () {
     this.goodsData = this.$route.params.goods
-    console.log(this.goodsData)
   },
   methods: {
     onBackClick () {
