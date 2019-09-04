@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <component :is="currentComponent"></component>
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
     <tool-bar @onChangeFragment="onChangeFragment"></tool-bar>
   </div>
 </template>

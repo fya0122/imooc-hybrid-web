@@ -9,7 +9,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [{
     path: '/',
-    name: 'imooc',
+    name: 'imooc', // 默认的不要用路由懒加载，会造成beforeEach一开始走两边的BUG
     component: main
   }, {
     path: '/goodsList',

@@ -1,5 +1,5 @@
 <template>
-  <div class="goods" :class="[layoutClass, {'goods-scroll': isScroll}]" :style="{'height': goodsViewHeight}">
+  <div ref="goods" @scroll="onScrollChange" class="goods" :class="[layoutClass, {'goods-scroll': isScroll}]" :style="{'height': goodsViewHeight}">
     <div @click="onItemClick(item)" :class="layoutItemClass" :style="goodsItemStyles[index]" :key="item.id" v-for="(item, index) of sortGoodsData" ref="goodsItem" class="goods-item">
       <img class="goods-item-img" :src="item.img" :style="imgStyles[index]" alt="">
       <div class="goods-item-desc">
@@ -71,13 +71,21 @@ export default {
       // 1、垂直列表的展示形式goods-list和goods-list-item
       // 2、网格布局的展示形式，goods-grid和goods-grid-item
       layoutClass: 'goods-list',
-      layoutItemClass: 'goods-list-item'
+      layoutItemClass: 'goods-list-item',
+      scrollTopValue: 0
     }
   },
   mounted () {
     this.initData()
   },
+  activated () {
+    this.$refs.goods.scrollTop = this.scrollTopValue
+  },
   methods: {
+    onScrollChange ($event) {
+      this.scrollTopValue = $event.target.scrollTop
+      console.log(this.scrollTopValue)
+    },
     onItemClick (item) {
       if (!item.isHave) {
         alert('该商品无库存')

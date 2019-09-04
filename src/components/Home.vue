@@ -1,5 +1,5 @@
 <template>
-  <div class="home" @scroll="onScrollChange">
+  <div class="home" @scroll="onScrollChange" ref="home">
     <navigation-bar @onLeftClick="onLeftClick" :navBarStyle="navBarStyle" :isShowBack="false">
       <template v-slot:nav-left>
         <img :src="navBarCurrentSlotStyle.leftIcon" alt="">
@@ -100,6 +100,10 @@ export default {
     this._initSwiperData()
     this._initActivityDatas()
     this._initSecondsDatas()
+  },
+  activated () {
+    this.$refs.home.scrollTop = this.scrollToValue
+    console.log(this.scrollToValue)
   },
   methods: {
     onLeftClick () {
