@@ -92,9 +92,22 @@ export default {
     Parallax
   },
   created () {
-    this.goodsData = this.$route.params.goods
+    // console.log(this.$route)
+    // debugger
+    // this.goodsData = this.$route.params.goods
+    this.loadGoodsData()
   },
   methods: {
+    async loadGoodsData () {
+      const res = await this.$http.get('/goodsDetail', {
+        params: {
+          goodsId: this.$route.query.goodsId
+        }
+      })
+      if (res.data.state === '0' && res.data.data.goodsData) {
+        this.goodsData = res.data.data.goodsData
+      }
+    },
     onBackClick () {
       this.$router.go(-1)
     },
@@ -156,6 +169,7 @@ export default {
 
     &-content {
       height: 100%;
+      overflow: hidden;
 
       &-desc {
         width: 100%;

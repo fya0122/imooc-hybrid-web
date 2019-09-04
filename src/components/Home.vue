@@ -103,7 +103,6 @@ export default {
   },
   activated () {
     this.$refs.home.scrollTop = this.scrollToValue
-    console.log(this.scrollToValue)
   },
   methods: {
     onLeftClick () {

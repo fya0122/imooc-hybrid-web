@@ -75,16 +75,16 @@ export default {
       scrollTopValue: 0
     }
   },
-  mounted () {
+  created () {
     this.initData()
   },
   activated () {
     this.$refs.goods.scrollTop = this.scrollTopValue
+    console.log(this.scrollTopValue)
   },
   methods: {
     onScrollChange ($event) {
       this.scrollTopValue = $event.target.scrollTop
-      console.log(this.scrollTopValue)
     },
     onItemClick (item) {
       if (!item.isHave) {
@@ -94,8 +94,11 @@ export default {
       this.$router.push({
         name: 'goodsDetail',
         params: {
-          goods: item,
           routerType: 'push'
+        },
+        // query来传递的数据，会附加到url上面
+        query: {
+          goodsId: item.id
         }
       })
     },
