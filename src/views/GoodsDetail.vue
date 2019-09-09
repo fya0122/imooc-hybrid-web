@@ -54,7 +54,7 @@
     <!-- 加入购物车、立即购买 -->
     <div class="goods-detail-buy">
       <div class="goods-detail-buy-add">加入购物车</div>
-      <div class="goods-detail-buy-now">立即购买</div>
+      <div class="goods-detail-buy-now" @click="onBuyClick">立即购买</div>
     </div>
   </div>
 </template>
@@ -114,6 +114,17 @@ export default {
     onScrollChange (e) {
       /* 获取当前页面滑动的值 */
       this.scrollValue = e
+    },
+    onBuyClick () {
+      this.$router.push({
+        name: 'buy',
+        params: {
+          routerType: 'push'
+        },
+        query: {
+          goodsId: this.goodsData.id
+        }
+      })
     }
   },
   computed: {
