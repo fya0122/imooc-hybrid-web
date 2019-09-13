@@ -26,7 +26,9 @@ export default {
         this.virtualTaskStack.pop()
         this.transitionName = 'fold-right'
       }
-      console.log(this.virtualTaskStack)
+      if (to.params.clearTask) { // 如果为true的话，就等于我们初始化的虚拟栈
+        this.virtualTaskStack = ['imooc']
+      }
     }
   }
 }

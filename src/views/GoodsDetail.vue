@@ -53,7 +53,7 @@
     </div>
     <!-- 加入购物车、立即购买 -->
     <div class="goods-detail-buy">
-      <div class="goods-detail-buy-add">加入购物车</div>
+      <div @click="onAddGoodsClick" class="goods-detail-buy-add">加入购物车</div>
       <div class="goods-detail-buy-now" @click="onBuyClick">立即购买</div>
     </div>
   </div>
@@ -98,6 +98,20 @@ export default {
     this.loadGoodsData()
   },
   methods: {
+    onAddGoodsClick () {
+      alert('添加成功')
+      this.$router.push({
+        name: 'imooc',
+        params: {
+          routerType: 'push',
+          // 自定义标记,代表你此刻main.vue里面里面具体显示哪个component
+          componentIndex: 1,
+          // 自定义标记，代表清空虚拟栈，否则当你第一次从详情到购物车的时候ok，
+          // 再回退回去的话，你点击任何一个商品，都是你第一次的那个商品
+          clearTask: true
+        }
+      })
+    },
     async loadGoodsData () {
       const res = await this.$http.get('/goodsDetail', {
         params: {

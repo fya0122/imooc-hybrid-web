@@ -80,7 +80,6 @@ export default {
   },
   activated () {
     this.$refs.goods.scrollTop = this.scrollTopValue
-    console.log(this.scrollTopValue)
   },
   methods: {
     onScrollChange ($event) {
