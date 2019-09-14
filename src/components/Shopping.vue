@@ -5,7 +5,7 @@
       <div class="shopping-content-list">
         <!-- 商品 -->
         <div class="shopping-content-list-item" :key="item.id" v-for="(item, index) of shoppingDatas">
-          <img class="shopping-content-list-item-check" src="@img/no-check.svg" alt="">
+          <img @click="onGoodsCheckClick(item)" :src="checkImg(item.isCheck)" class="shopping-content-list-item-check">
           <img class="shopping-content-list-item-img" :src="item.img" alt="">
           <div class="shopping-content-list-item-desc">
             <p class="shopping-content-list-item-desc-name text-line-2">
@@ -23,7 +23,7 @@
       <div class="shopping-content-total">
         <!-- check -->
         <div class="shopping-content-total-check">
-          <img src="@img/no-check.svg" alt="">
+          <img :src="checkImg(totalData.isAll)" @click="onAllCheckClick">
         </div>
         <!-- total -->
         <div class="shopping-content-total-price">
@@ -36,7 +36,7 @@
         </div>
         <!-- 结算 -->
         <div class="shopping-content-total-commit">
-          去结算{{ totalData.goodsNumber }}
+          去结算({{ totalData.goodsNumber }})
         </div>
       </div>
     </div>
@@ -64,6 +64,8 @@ export default {
   },
   activated () {
     this.shoppingDatas = this.$store.getters.shoppingDatas
+    /* 页面重新打开的时候也是要计算的 */
+    this.computedGoodsTotal()
   },
   methods: {
     onChangeNumber ($arguments, item, index) {
@@ -72,8 +74,42 @@ export default {
         index: index,
         number: number
       })
-      console.log(this.$store.getters.shoppingDatas)
-      console.log(item)
+      if (item.isCheck) {
+        this.computedGoodsTotal()
+      }
+    },
+    /* 单选 */
+    onGoodsCheckClick (item) {
+      item.isCheck = !item.isCheck /* 取反 */
+      this.computedGoodsTotal()
+    },
+    /* 全选点击事件 */
+    onAllCheckClick () {
+      this.totalData.isAll = !this.totalData.isAll
+      this.shoppingDatas.forEach(item => {
+        item.isCheck = this.totalData.isAll
+      })
+      this.computedGoodsTotal()
+    },
+    /* 选中的图片 */
+    checkImg (isCheck) {
+      return isCheck ? require('@img/check.svg') : require('@img/no-check.svg')
+    },
+    /* 计算总计的数据 */
+    computedGoodsTotal () {
+      this.totalData = {
+        isAll: true, // 我们初始化的时候，默认为true，当有商品未被选中的时候，设置为false即可
+        totalPrice: 0,
+        goodsNumber: 0
+      }
+      this.shoppingDatas.forEach((item) => {
+        if (item.isCheck) {
+          this.totalData.totalPrice += parseFloat(item.price) * parseInt(item.number)
+          this.totalData.goodsNumber += parseInt(item.number)
+        } else {
+          this.totalData.isAll = false
+        }
+      })
     }
   }
 }
