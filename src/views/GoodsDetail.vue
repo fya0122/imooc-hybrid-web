@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     onAddGoodsClick () {
+      this.$store.commit('goods/ADD_SHOPPINGDATA', this.goodsData)
       alert('添加成功')
       this.$router.push({
         name: 'imooc',
