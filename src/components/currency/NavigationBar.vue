@@ -1,5 +1,5 @@
 <template>
-  <div :style="navBarStyle" class="nav-bar z-index-max" :class="{'bottom-line': pageName}">
+  <div :style="navBarStyle" class="nav-bar z-index-max" :class="[{'bottom-line': pageName}, {'iphonex-top': $store.getters.isIphoneX}]">
     <div @click="$emit('onLeftClick')" class="left">
       <img v-if="isShowBack" src="@img/back.svg" alt="">
       <slot name="nav-left"></slot>
@@ -44,7 +44,8 @@ export default {
     line-height: px2rem(44);
     display: flex;
     justify-content: space-between;
-
+    /* 适配手机沉浸式 */
+    padding-top: $statusBarHeight;
     .left,
     .right {
       display: flex;

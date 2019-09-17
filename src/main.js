@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/index'
 import '@js/filters.js'
 import '@js/htmlFontSize.js'
+import '@js/IsIphoneX.js'
 import service from '@js/axios.config.js'
 
 Vue.prototype.$http = service

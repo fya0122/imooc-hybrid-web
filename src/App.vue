@@ -16,6 +16,9 @@ export default {
       virtualTaskStack: ['imooc']
     }
   },
+  created () {
+    this.$store.commit('device/SET_ISIPHONEX', window.isIphoneX)
+  },
   watch: {
     '$route' (to, form) {
       const routerType = to.params.routerType

@@ -56,7 +56,7 @@ export default {
   data () {
     return {
       swiperImgs: [],
-      swiperHeight: '184px',
+      swiperHeight: this.$store.getters.isIphoneX ? '228px' : '184px',
       activityDatas: [],
       secondsDatas: [],
       // 一定要写上默认的样式和滑动的样式
