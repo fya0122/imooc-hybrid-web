@@ -17,7 +17,15 @@ export default {
     }
   },
   created () {
+    // 查看是否是iPhoneX
     this.$store.commit('device/SET_ISIPHONEX', window.isIphoneX)
+    // App端的自动登录
+    window.nativeFunctionUserLogin = this.nativeFunctionUserLogin
+  },
+  methods: {
+    nativeFunctionUserLogin (username) {
+      this.$store.commit('user/SET_USERNAME', username)
+    }
   },
   watch: {
     '$route' (to, form) {

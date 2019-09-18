@@ -20,6 +20,7 @@
 </template>
 <script>
 import NavigationBar from '@c/currency/NavigationBar.vue'
+import md5 from '@js/md5.min.js'
 export default {
   name: 'login',
   components: {
@@ -28,7 +29,8 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      md5Password: ''
     }
   },
   methods: {
@@ -42,9 +44,46 @@ export default {
         alert('用户名或密码未输入')
         return false
       }
-      /**
-       * 与原生交互，验证用户输入的用户名和密码
-       * */
+      this.md5Password = md5(this.password)
+      if (window.androidJSBridge) {
+        this.onLoginToAndroid()
+      } else if (window.webkit) {
+        this.onLoginToIOS()
+      }
+    },
+    onLoginToAndroid () {
+      let userJSON = JSON.stringify({
+        'username': this.username,
+        'password': this.md5Password
+      })
+      let result = window.androidJSBridge.login(userJSON)
+      this.onLoginCallback(result)
+    },
+    onLoginToIOS () {
+      let userObj = {
+        'username': this.username,
+        'password': this.md5Password
+      }
+      window.loginCallback = this.onLoginCallback
+      window.webkit.messageHandlers.login.postMessage(userObj)
+    },
+    onLoginCallback (result) {
+      switch (result) {
+        case '-1':
+          alert('系统内部错误')
+          break
+        case '0':
+          // 保存主动登录的用户名到 username
+          this.$store.commit('user/SET_USERNAME', this.username)
+          this.onBackClick()
+          break
+        case '1':
+          alert('登录用户不存在')
+          break
+        case '2':
+          alert('用户密码错误')
+          break
+      }
     },
     onToRegisterClick () {
       this.$router.push({
