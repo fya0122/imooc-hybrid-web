@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-    <div class="pay page-commit">
+    <div class="pay page-commit" @click="onPayClick">
       立即购买
     </div>
   </div>
@@ -75,6 +75,28 @@ export default {
     },
     getCheckIcon (isCheck) {
       return isCheck ? require('@img/check.svg') : require('@img/no-check.svg')
+    },
+    onPayClick () {
+      if (this.selectPayment.id === '1') { // 支付宝
+        this.aliPay()
+      } else if (this.selectPayment.id === '2') {
+        this.wxPay()
+      }
+    },
+    // 支付宝支付
+    aliPay () {
+      // 判断当前设备为 Android 设备
+      if (window.androidJSBridge) {
+        // 调用 支付宝支付的方法
+        window.androidJSBridge.aliPay(JSON.stringify(this.goodsData))
+      }
+    },
+    wxPay () {
+      // 判断当前设备为 Android 设备
+      if (window.androidJSBridge) {
+        // 调用 微信支付的方法
+        window.androidJSBridge.wxPay(JSON.stringify(this.goodsData))
+      }
     }
   },
   components: {
